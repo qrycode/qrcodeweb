@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>위치 정보</title>
+</head>
+<body>
+    <h1>위치 정보</h1>
+    <p id="location">위치 정보를 가져오는 중...</p>
+
+    <script>
+        function showPosition(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const altitude = position.coords.altitude !== null ? position.coords.altitude : "고도 정보 없음";
+
+            document.getElementById("location").innerHTML = 
+                `위도: ${latitude}<br>경도: ${longitude}<br>고도: ${altitude}`;
+        }
+
+        function showError() {
+            document.getElementById("location").innerHTML = "위치 정보를 가져올 수 없습니다.";
+        }
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            document.getElementById("location").innerHTML = "이 브라우저는 위치 정보를 지원하지 않습니다.";
+        }
+    </script>
+</body>
+</html>
