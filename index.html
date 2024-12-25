@@ -1,46 +1,33 @@
-<!doctype html>
-
-<html>
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <title>HTML Example</title>
-  
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/about.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>위치 정보</title>
 </head>
 <body>
-  <section class="center">
-    <aside class="sidebar"></aside>
-    
-    <section class="contents">
-      <!-- page will be include here -->
-      <section id="page" class="page">
-        <section id="about">
-          <section class="frame">
-            <h2><b>HELLO</b>WORLD</h2>
-            
-            <div class="cat">
-              <div class="picture">
-                <img src="images/mew.png" alt="Mew">
-              </div>
-              <small>Mew</small>
-            </div>
-            <div class="cat">
-              <div class="picture">
-                <img src="images/siesta.png" alt="Siesta">
-              </div>
-              <small>Siesta</small>
-            </div>
-            <div class="cat">
-              <div class="picture">
-                <img src="images/tiger.png" alt="Tiger">
-              </div>
-              <small>Tiger</small>
-            </div>
-          </section>
-        </section>
-      </section>
-    </section>
-  </section>
+    <h1>위치 정보</h1>
+    <p id="location">위치 정보를 가져오는 중...</p>
+
+    <script>
+        function showPosition(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            const altitude = position.coords.altitude !== null ? position.coords.altitude : "고도 정보 없음";
+
+            document.getElementById("location").innerHTML = 
+                `위도: ${latitude}<br>경도: ${longitude}<br>고도: ${altitude}`;
+        }
+
+        function showError() {
+            document.getElementById("location").innerHTML = "위치 정보를 가져올 수 없습니다.";
+        }
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition, showError);
+        } else {
+            document.getElementById("location").innerHTML = "이 브라우저는 위치 정보를 지원하지 않습니다.";
+        }
+    </script>
 </body>
 </html>
